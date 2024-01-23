@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Feedback = require('../models/feedbackmodel'); // Import the Feedback model
 
-router.post('/', async (req, res) => {
+router.post('/api', async (req, res) => {
     try {
         // Extract the questions array from the feedback property in req.body
         const { feedback } = req.body;

@@ -17,6 +17,10 @@ router.post('/', async (req, res) => {
         res.status(400).json({ message: 'Failed to submit feedback', error: error.message });
     }
 });
+router.get('/', async (req, res) => {
+    // Example response for GET request
+    res.status(200).json({ message: 'API is working' });
+});
 
 
 module.exports = router;

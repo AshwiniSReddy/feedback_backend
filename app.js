@@ -180,26 +180,53 @@ app.listen(process.env.PORT,async ()=>{
 
 
 // Scheduled task to run at 23:59 every day
-cron.schedule('09 17 * * *', async () => {
+// cron.schedule('0 10 * * 1', async () => {
+//     try {
+//         const startOfDay = new Date();
+//         startOfDay.setHours(0, 0, 0, 0);
+
+//         const endOfDay = new Date();
+//         endOfDay.setHours(23, 59, 59, 999);
+
+//         const todaysFeedback = await Feedback_main.find({
+//             createdAt: { $gte: startOfDay, $lte: endOfDay }
+//         });
+//         console.log(todaysFeedback)
+
+//         if (todaysFeedback.length > 0) {
+//             const filePath = './Feedback.xlsx';
+//             await createExcelFile(todaysFeedback, filePath);
+//             await sendEmailWithAttachment(filePath);
+//             console.log('Daily feedback report sent');
+//         } else {
+//             console.log('No feedback to report for today');
+//         }
+//     } catch (error) {
+//         console.error('Error in scheduled task:', error);
+//     }
+// });
+
+cron.schedule('0 10 * * 1', async () => {
     try {
-        const startOfDay = new Date();
-        startOfDay.setHours(0, 0, 0, 0);
+        const today = new Date();
+        const startOfWeek = new Date(today.setDate(today.getDate() - today.getDay() + (today.getDay() === 0 ? -6 : 1)));
+        startOfWeek.setHours(0, 0, 0, 0);
 
-        const endOfDay = new Date();
-        endOfDay.setHours(23, 59, 59, 999);
+        const endOfWeek = new Date(today.setDate(today.getDate() - today.getDay() + 7));
+        endOfWeek.setHours(23, 59, 59, 999);
 
-        const todaysFeedback = await Feedback_main.find({
-            createdAt: { $gte: startOfDay, $lte: endOfDay }
+        const weeklyFeedback = await Feedback_main.find({
+            createdAt: { $gte: startOfWeek, $lte: endOfWeek }
         });
-        console.log(todaysFeedback)
+        console.log(weeklyFeedback)
 
-        if (todaysFeedback.length > 0) {
+        if (weeklyFeedback.length > 0) {
             const filePath = './Feedback.xlsx';
-            await createExcelFile(todaysFeedback, filePath);
+            await createExcelFile(weeklyFeedback, filePath);
             await sendEmailWithAttachment(filePath);
-            console.log('Daily feedback report sent');
+            console.log('Weekly feedback report sent');
         } else {
-            console.log('No feedback to report for today');
+            console.log('No feedback to report for this week');
         }
     } catch (error) {
         console.error('Error in scheduled task:', error);

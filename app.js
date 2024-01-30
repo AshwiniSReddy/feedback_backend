@@ -10,7 +10,7 @@ const feedback=require('./routes/feedback')
 const nodemailer = require('nodemailer');
 const cron = require('node-cron');
 
-
+const app=express();
 // const corsOptions = {
 //     origin: 'http://feedbackuser.s3-website.ap-south-1.amazonaws.com', // or use '*' to allow all origins
 //     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
@@ -24,7 +24,7 @@ app.use(cors({
     credentials: true, // If you need to allow credentials (e.g., cookies), set this to true
   }));
 
-const app=express();
+
 dotenv.config();
 
 app.use(express.json());

@@ -18,7 +18,11 @@ const cron = require('node-cron');
 
 // app.use(cors(corsOptions));
 
-app.use(cors());
+app.use(cors({
+    origin: 'http://feedbackuser.s3-website.ap-south-1.amazonaws.com', // Update with your frontend URL
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true, // If you need to allow credentials (e.g., cookies), set this to true
+  }));
 
 const app=express();
 dotenv.config();

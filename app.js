@@ -19,11 +19,7 @@ const cron = require('node-cron');
 // app.use(cors(corsOptions));
 
 app.use(cors());
-app.use(cors({
-     origin: '*',
-    methods: 'GET,POST', // Specify allowed methods
-    allowedHeaders: 'Content-Type,Authorization', // Specify allowed headers
-  }));
+
 const app=express();
 dotenv.config();
 

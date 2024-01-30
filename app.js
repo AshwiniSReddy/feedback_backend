@@ -29,7 +29,7 @@ dotenv.config();
 
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
-app.use("/api",feedback);
+app.use("/",feedback);
 
 
 // // Function to create an Excel file from data

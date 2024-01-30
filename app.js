@@ -11,6 +11,12 @@ const nodemailer = require('nodemailer');
 const cron = require('node-cron');
 
 
+const corsOptions = {
+    origin: 'http://feedbackuser.s3-website.ap-south-1.amazonaws.com', // or use '*' to allow all origins
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+
+app.use(cors(corsOptions));
 
 
 

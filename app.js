@@ -20,7 +20,7 @@ const cron = require('node-cron');
 
 app.use(cors());
 app.use(cors({
-    origin: 'http://feedbackuser.s3-website.ap-south-1.amazonaws.com',
+     origin: '*',
     methods: 'GET,POST', // Specify allowed methods
     allowedHeaders: 'Content-Type,Authorization', // Specify allowed headers
   }));

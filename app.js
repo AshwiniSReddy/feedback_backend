@@ -96,8 +96,7 @@ async function createExcelFile(data, filePath) {
         { header: 'What did you gain the most from PARSEC', key: 'gainFromParsec', width: 35 },
         { header: 'How satisfied are you with your visit to PARSEC?', key: 'satisfaction', width: 40 },
         { header: 'What could we improve?', key: 'improvement', width: 35 },
-        { header: 'Any suggestions or specific bad experience you would like to bring to our notice?', key: 'suggestions', width: 50 },
-        { header: 'Any appreciation for a facilitator/ exhibit/ experience you had here today?', key: 'appreciation', width: 50 },
+      
         { header: 'Submitted At', key: 'createdAt', width: 20 }
     ];
 
@@ -110,8 +109,8 @@ async function createExcelFile(data, filePath) {
             gainFromParsec: '',
             satisfaction: '',
             improvement: '',
-            suggestions: '',
-            appreciation: '',
+            // suggestions: '',
+            // appreciation: '',
             createdAt: feedbackItem.createdAt
         };
 
@@ -133,12 +132,12 @@ async function createExcelFile(data, filePath) {
                 case 'What could we improve?':
                     rowData.improvement = qa.answer;
                     break;
-                case 'Any suggestions or specific bad experience you would like to bring to our notice?':
-                    rowData.suggestions = qa.answer;
-                    break;
-                case 'Any appreciation for a facilitator/ exhibit/ experience you had here today?':
-                    rowData.appreciation = qa.answer;
-                    break;
+                // case 'Any suggestions or specific bad experience you would like to bring to our notice?':
+                //     rowData.suggestions = qa.answer;
+                //     break;
+                // case 'Any appreciation for a facilitator/ exhibit/ experience you had here today?':
+                //     rowData.appreciation = qa.answer;
+                //     break;
                 // Add other cases as necessary
                 default:
                     break;

@@ -11,12 +11,7 @@ const nodemailer = require('nodemailer');
 const cron = require('node-cron');
 
 const app=express();
-// const corsOptions = {
-//     origin: 'http://feedbackuser.s3-website.ap-south-1.amazonaws.com', // or use '*' to allow all origins
-//     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-// };
 
-// app.use(cors(corsOptions));
 
 app.use(cors({
     origin: 'http://feedbackuser.s3-website.ap-south-1.amazonaws.com', // Update with your frontend URL
@@ -32,57 +27,7 @@ app.use(express.urlencoded({extended:false}));
 app.use("/",feedback);
 
 
-// // Function to create an Excel file from data
-// async function createExcelFile(data, filePath) {
-//     console.log(data)
-//     const workbook = new ExcelJS.Workbook();
-//     const worksheet = workbook.addWorksheet('Feedback');
 
-//     worksheet.columns = [
-//         { header: 'Question', key: 'question', width: 30 },
-//         { header: 'Answer', key: 'answer', width: 30 },
-//         { header: 'Submitted At', key: 'createdAt', width: 20 }
-//     ];
-
-//     data.forEach(item => {
-//         item.questions.forEach(qa => {
-//             worksheet.addRow({ ...qa, createdAt: item.createdAt });
-//         });
-//     });
-
-//     await workbook.xlsx.writeFile(filePath);
-// }
-
-
-
-// async function createExcelFile(data, filePath) {
-//     const workbook = new ExcelJS.Workbook();
-//     const worksheet = workbook.addWorksheet('Feedback');
-
-//     // Define columns
-//     worksheet.columns = [
-//         { header: 'Question', key: 'question', width: 30 },
-//         { header: 'Answer', key: 'answer', width: 30 },
-//         { header: 'Submitted At', key: 'createdAt', width: 20 }
-//     ];
-
-//     // Loop through each feedback entry
-//     data.forEach(feedbackItem => {
-//         // Check if the feedback item has questions and is an array
-//         if (feedbackItem.questions && Array.isArray(feedbackItem.questions)) {
-//             feedbackItem.questions.forEach(qa => {
-//                 // Add a row for each question-answer pair
-//                 worksheet.addRow({
-//                     question: qa.question,
-//                     answer: qa.answer,
-//                     createdAt: feedbackItem.createdAt
-//                 });
-//             });
-//         }
-//     });
-
-//     await workbook.xlsx.writeFile(filePath);
-// }
 
 
 async function createExcelFile(data, filePath) {
@@ -164,7 +109,7 @@ async function sendEmailWithAttachment(filePath) {
 
     let mailOptions = {
         from: 'ashwinireddy@paraminnovation.org',
-        to: 'ayelchell@gmail.com',
+        to: 'marketing@paraminnovation.org',
         subject: 'Daily Feedback Report',
         text: 'Attached is the daily feedback report.',
         attachments: [{ filename: 'Feedback.xlsx', path: filePath }]
@@ -188,32 +133,6 @@ app.listen(process.env.PORT,async ()=>{
 })
 
 
-// Scheduled task to run at 23:59 every day
-// cron.schedule('0 10 * * 1', async () => {
-//     try {
-//         const startOfDay = new Date();
-//         startOfDay.setHours(0, 0, 0, 0);
-
-//         const endOfDay = new Date();
-//         endOfDay.setHours(23, 59, 59, 999);
-
-//         const todaysFeedback = await Feedback_main.find({
-//             createdAt: { $gte: startOfDay, $lte: endOfDay }
-//         });
-//         console.log(todaysFeedback)
-
-//         if (todaysFeedback.length > 0) {
-//             const filePath = './Feedback.xlsx';
-//             await createExcelFile(todaysFeedback, filePath);
-//             await sendEmailWithAttachment(filePath);
-//             console.log('Daily feedback report sent');
-//         } else {
-//             console.log('No feedback to report for today');
-//         }
-//     } catch (error) {
-//         console.error('Error in scheduled task:', error);
-//     }
-// });
 
 cron.schedule('0 10 * * 1', async () => {
     try {

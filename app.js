@@ -108,7 +108,7 @@ async function sendEmailWithAttachment(filePath) {
     });
 
     let mailOptions = {
-        from: 'ashwinireddy@paraminnovation.org',
+        from: 'feedbackfeedback27@gmail.com',
         to: 'marketing@paraminnovation.org',
         subject: 'Daily Feedback Report',
         text: 'Attached is the daily feedback report.',
@@ -134,7 +134,7 @@ app.listen(process.env.PORT,async ()=>{
 
 
 
-cron.schedule('0 10 * * 1', async () => {
+cron.schedule('10 10 * * 1', async () => {
     try {
         const today = new Date();
         const startOfWeek = new Date(today.setDate(today.getDate() - today.getDay() + (today.getDay() === 0 ? -6 : 1)));
@@ -160,3 +160,24 @@ cron.schedule('0 10 * * 1', async () => {
         console.error('Error in scheduled task:', error);
     }
 });
+
+
+// cron.schedule('53 10 * * *', async () => {  // Runs every day at 10:00
+//     try {
+//         const allFeedback = await Feedback_main.find({}); // Fetches all documents in the Feedback_main collection
+//          console.log(1111)
+       
+
+//         if (allFeedback.length > 0) {
+//             const filePath = './Feedback.xlsx';
+//             await createExcelFile(allFeedback, filePath); // Generate Excel file with all feedback data
+//             await sendEmailWithAttachment(filePath); // Send email with the generated Excel file as an attachment
+//             console.log('All feedback report sent');
+//         } else {
+//             console.log('No feedback data to report');
+//         }
+//     } catch (error) {
+//         console.error('Error in scheduled task:', error);
+//     }
+// });
+

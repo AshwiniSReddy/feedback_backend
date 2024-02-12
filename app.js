@@ -134,19 +134,22 @@ app.listen(process.env.PORT,async ()=>{
 
 
 
-cron.schedule('22 12 * * 1', async () => {
+cron.schedule('39 12 * * 1', async () => {
     try {
         const today = new Date();
-        const startOfWeek = new Date(today.setDate(today.getDate() - today.getDay() + (today.getDay() === 0 ? -6 : 1)));
+        // Calculate the start of last week (Previous Sunday at 00:00:00)
+        let startOfWeek = new Date(today.setDate(today.getDate() - today.getDay() - 6));
         startOfWeek.setHours(0, 0, 0, 0);
 
-        const endOfWeek = new Date(today.setDate(today.getDate() - today.getDay() + 7));
+        // Calculate the end of this week (This Monday at 23:59:59.999)
+        let endOfWeek = new Date(today.setDate(today.getDate() - today.getDay() + 8));
         endOfWeek.setHours(23, 59, 59, 999);
 
+       console.log(startOfWeek,endOfWeek)
         const weeklyFeedback = await Feedback_main.find({
             createdAt: { $gte: startOfWeek, $lte: endOfWeek }
         });
-        console.log(weeklyFeedback)
+        // console.log(weeklyFeedback)
 
         if (weeklyFeedback.length > 0) {
             const filePath = './Feedback.xlsx';

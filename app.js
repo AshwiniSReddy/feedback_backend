@@ -134,7 +134,7 @@ app.listen(process.env.PORT,async ()=>{
 
 
 
-cron.schedule('10 10 * * 1', async () => {
+cron.schedule('22 12 * * 1', async () => {
     try {
         const today = new Date();
         const startOfWeek = new Date(today.setDate(today.getDate() - today.getDay() + (today.getDay() === 0 ? -6 : 1)));

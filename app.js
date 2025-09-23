@@ -15,7 +15,7 @@ const app = express();
 // http://feedbackuser.s3-website.ap-south-1.amazonaws.com
 app.use(
   cors({
-    origin: "http://localhost:5173", // Update with your frontend URL
+    origin: "http://feedbackuser.s3-website.ap-south-1.amazonaws.com", // Update with your frontend URL
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true, // If you need to allow credentials (e.g., cookies), set this to true
   })

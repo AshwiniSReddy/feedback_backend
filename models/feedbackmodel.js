@@ -5,7 +5,7 @@ const FeedbackSchema = new mongoose.Schema({
     questions: [
         {
             question: { type: String, required: true },
-            answer: { type: String, required: true }
+            answer: { type: String, required: false }
         }
     ],
     createdAt: { type: Date, default: Date.now } // Ensure timestamps are recorded

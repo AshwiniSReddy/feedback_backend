@@ -25,7 +25,7 @@ dotenv.config();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use("/", feedback);
+app.use("/api", feedback);
 
 async function createExcelFile(data, filePath) {
   const workbook = new ExcelJS.Workbook();

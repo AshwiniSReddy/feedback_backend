@@ -64,7 +64,7 @@ jobs:
           echo "${{ secrets.PROD_ENV_FILE }}" > .env
       
       - name: Start or restart backend service
-        run: pm2 start backendAPI || pm2 restart backendAPI
+        run: pm2 restart backendAPI
 
 
 

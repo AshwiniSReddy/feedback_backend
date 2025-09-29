@@ -124,7 +124,7 @@ async function sendEmailWithAttachment(filePath) {
 
   let mailOptions = {
     from: "feedbackfeedback27@gmail.com",
-    to: "ashwinireddy@paraminnovation.org",
+    to: "marketing@paraminnovation.org",
     subject: "Daily Feedback Report",
     text: "Attached is the daily feedback report.",
     attachments: [{ filename: "Feedback.xlsx", path: filePath }],

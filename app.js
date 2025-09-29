@@ -145,68 +145,68 @@ app.listen(process.env.PORT, async () => {
   console.log(`Ther server is up at ${process.env.PORT}`);
 });
 
-cron.schedule('39 12 * * 1', async () => {
-    try {
-        const today = new Date();
-        // Calculate the start of last week (Previous Sunday at 00:00:00)
-        let startOfWeek = new Date(today.setDate(today.getDate() - today.getDay() - 6));
-        startOfWeek.setHours(0, 0, 0, 0);
+// cron.schedule('39 12 * * 1', async () => {
+//     try {
+//         const today = new Date();
+//         // Calculate the start of last week (Previous Sunday at 00:00:00)
+//         let startOfWeek = new Date(today.setDate(today.getDate() - today.getDay() - 6));
+//         startOfWeek.setHours(0, 0, 0, 0);
 
-        // Calculate the end of this week (This Monday at 23:59:59.999)
-        let endOfWeek = new Date(today.setDate(today.getDate() - today.getDay() + 8));
-        endOfWeek.setHours(23, 59, 59, 999);
+//         // Calculate the end of this week (This Monday at 23:59:59.999)
+//         let endOfWeek = new Date(today.setDate(today.getDate() - today.getDay() + 8));
+//         endOfWeek.setHours(23, 59, 59, 999);
 
-       console.log(startOfWeek,endOfWeek)
-        const weeklyFeedback = await Feedback_main.find({
-            createdAt: { $gte: startOfWeek, $lte: endOfWeek }
-        });
-        // console.log(weeklyFeedback)
+//        console.log(startOfWeek,endOfWeek)
+//         const weeklyFeedback = await Feedback_main.find({
+//             createdAt: { $gte: startOfWeek, $lte: endOfWeek }
+//         });
+//         // console.log(weeklyFeedback)
 
-        if (weeklyFeedback.length > 0) {
-            const filePath = './Feedback.xlsx';
-            await createExcelFile(weeklyFeedback, filePath);
-            await sendEmailWithAttachment(filePath);
-            console.log('Weekly feedback report sent');
-        } else {
-            console.log('No feedback to report for this week');
-        }
-    } catch (error) {
-        console.error('Error in scheduled task:', error);
-    }
-});
-
-// cron.schedule("28 16 * * 1", async () => {
-//   try {
-//     const today = new Date();
-//     // Start of last week (Previous Sunday at 00:00:00)
-//     let startOfWeek = new Date(
-//       today.setDate(today.getDate() - today.getDay() - 6)
-//     );
-//     startOfWeek.setHours(0, 0, 0, 0);
-
-//     // End of this week (This Monday at 23:59:59.999)
-//     let endOfWeek = new Date(
-//       today.setDate(today.getDate() - today.getDay() + 8)
-//     );
-//     endOfWeek.setHours(23, 59, 59, 999);
-
-//     console.log(startOfWeek, endOfWeek);
-
-//     const weeklyFeedback = await Feedback_main.find({
-//       createdAt: { $gte: startOfWeek, $lte: endOfWeek },
-//     });
-
-//     if (weeklyFeedback.length > 0) {
-//       const filePath = "./Feedback.xlsx";
-//       await createExcelFile(weeklyFeedback, filePath);
-//       await sendEmailWithAttachment(filePath);
-//       console.log("Weekly feedback report sent");
-//     } else {
-//       console.log("No feedback to report for this week");
+//         if (weeklyFeedback.length > 0) {
+//             const filePath = './Feedback.xlsx';
+//             await createExcelFile(weeklyFeedback, filePath);
+//             await sendEmailWithAttachment(filePath);
+//             console.log('Weekly feedback report sent');
+//         } else {
+//             console.log('No feedback to report for this week');
+//         }
+//     } catch (error) {
+//         console.error('Error in scheduled task:', error);
 //     }
-//   } catch (error) {
-//     console.error("Error in scheduled task:", error);
-//   }
 // });
+
+cron.schedule("28 16 * * 1", async () => {
+  try {
+    const today = new Date();
+    // Start of last week (Previous Sunday at 00:00:00)
+    let startOfWeek = new Date(
+      today.setDate(today.getDate() - today.getDay() - 6)
+    );
+    startOfWeek.setHours(0, 0, 0, 0);
+
+    // End of this week (This Monday at 23:59:59.999)
+    let endOfWeek = new Date(
+      today.setDate(today.getDate() - today.getDay() + 8)
+    );
+    endOfWeek.setHours(23, 59, 59, 999);
+
+    console.log(startOfWeek, endOfWeek);
+
+    const weeklyFeedback = await Feedback_main.find({
+      createdAt: { $gte: startOfWeek, $lte: endOfWeek },
+    });
+
+    if (weeklyFeedback.length > 0) {
+      const filePath = "./Feedback.xlsx";
+      await createExcelFile(weeklyFeedback, filePath);
+      await sendEmailWithAttachment(filePath);
+      console.log("Weekly feedback report sent");
+    } else {
+      console.log("No feedback to report for this week");
+    }
+  } catch (error) {
+    console.error("Error in scheduled task:", error);
+  }
+});
 
 

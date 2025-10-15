@@ -4,6 +4,7 @@ const cors = require("cors");
 const ExcelJS = require("exceljs");
 const Feedback_main = require("./models/feedbackmodel"); // Import the Feedback model
 const connectDB = require("./connectDb/connect");
+const qnaRoutes = require("./routes/qnaRoutespixel");
 
 const { get } = require("mongoose");
 const feedback = require("./routes/feedback");
@@ -13,11 +14,24 @@ const cron = require("node-cron");
 const app = express();
 
 // http://feedbackuser.s3-website.ap-south-1.amazonaws.com
+const allowedOrigins = [
+  "http://localhost:5173",
+  "http://feedbackuser.s3-website.ap-south-1.amazonaws.com",
+];
+
 app.use(
   cors({
-    origin: "http://feedbackuser.s3-website.ap-south-1.amazonaws.com", // Update with your frontend URL
+    origin: function (origin, callback) {
+      // Allow requests with no origin (like mobile apps or curl)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      } else {
+        return callback(new Error("Not allowed by CORS"));
+      }
+    },
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    credentials: true, // If you need to allow credentials (e.g., cookies), set this to true
+    credentials: true,
   })
 );
 
@@ -26,6 +40,7 @@ dotenv.config();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use("/api", feedback);
+app.use("/api/qna", qnaRoutes);
 
 async function createExcelFile(data, filePath) {
   const workbook = new ExcelJS.Workbook();

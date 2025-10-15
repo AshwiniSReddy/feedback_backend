@@ -17,6 +17,7 @@ const app = express();
 const allowedOrigins = [
   "http://localhost:5173",
   "http://feedbackuser.s3-website.ap-south-1.amazonaws.com",
+  "http://feedbackpixel.s3-website.ap-south-1.amazonaws.com/"
 ];
 
 app.use(
